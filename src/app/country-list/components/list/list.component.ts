@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { ListService } from '../../service/list.service';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-countires',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
+  public countries = new MatTableDataSource();
 
-  constructor() { }
+  constructor(private readonly service: ListService) { }
 
-  ngOnInit(): void {
+  public ngOnInit() {
+    this.service.getCountries()
+      .subscribe((countries) => {
+        this.countries.data = countries
+      });
   }
-
 }
