@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CountryDetailRoutingModule } from './country-detail-routing.module';
 import { DetailComponent } from './components/detail/detail.component';
+import { DetailService } from './service/detail.service';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { DetailComponent } from './components/detail/detail.component';
   imports: [
     CommonModule,
     CountryDetailRoutingModule
-  ]
+  ],
+  providers: [DetailService]
 })
 export class CountryDetailModule { }
