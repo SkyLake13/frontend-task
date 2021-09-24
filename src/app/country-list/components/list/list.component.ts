@@ -17,14 +17,14 @@ import { FilterComponent } from '../filter/filter.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent implements OnInit, AfterViewInit {
-  public countries = new MatTableDataSource();
+  public countries = new MatTableDataSource<CountryListModel>();
 
   public ngOnInit() {
    this.store.select(state => selectCountries(state))
     .pipe(map((countries) => countries.map(responseMapper)))
     .subscribe((c) => this.countries.data = c);
 
-    // this.store.dispatch(getCountriesRequest());
+    this.store.dispatch(getCountriesRequest());
   }
 
   public ngAfterViewInit(): void {
@@ -32,10 +32,18 @@ export class ListComponent implements OnInit, AfterViewInit {
           .pipe(debounceTime(400))
           .subscribe((filter) => {
             console.log(filter);
+            this.countries.filter = JSON.stringify(filter);
           });
   }
 
-  constructor(private readonly store: Store<AppState>) { }
+  constructor(private readonly store: Store<AppState>) {
+    this.countries.filterPredicate = (country, filter) => {
+      const parsedFilter = JSON.parse(filter);
+      
+      return country.name.toLowerCase().includes(parsedFilter.country.toLowerCase()) 
+              && country.region.toLowerCase().includes(parsedFilter.region.toLowerCase());
+    }
+  }
 
   @ViewChild(FilterComponent)
   public _filter!: FilterComponent;
