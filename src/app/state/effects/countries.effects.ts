@@ -36,7 +36,7 @@ export class CountriesEffects {
         .pipe(
             ofType(getCountry),
             withLatestFrom(this.store.select(selectCountriesState)),
-            filter(([action, countriesState]) => countriesState.countries.length === 0),
+            filter(([, countriesState]) => countriesState.countries.length === 0),
             switchMap(([action]) => this.clientService.getCountryByCode(action.code)
                 .pipe(
                     map((country) => getCountrySuccess({ country }))
