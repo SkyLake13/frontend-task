@@ -1,14 +1,12 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { debounceTime, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CountryResponse } from '../../../rest-countries';
 import { selectCountries, AppState, getCountries } from '../../../state';
 
 import { CountryListModel } from '../../country-list.model';
-import { FilterComponent } from '../filter/filter.component';
-
 
 @Component({
   selector: 'app-countires',
@@ -16,37 +14,27 @@ import { FilterComponent } from '../filter/filter.component';
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent implements OnInit, AfterViewInit {
-  public countries = new MatTableDataSource<CountryListModel>();
+export class ListComponent implements OnInit, OnDestroy {
+  public countries: CountryListModel[] = [];
 
   public ngOnInit() {
-   this.store.select(state => selectCountries(state))
-    .pipe(map((countries) => countries.map(responseMapper)))
-    .subscribe((c) => this.countries.data = c);
-
+    this.subscribeToState();
     this.store.dispatch(getCountries());
   }
 
-  public ngAfterViewInit(): void {
-    this._filter.form.valueChanges
-          .pipe(debounceTime(400))
-          .subscribe((filter) => {
-            console.log(filter);
-            this.countries.filter = JSON.stringify(filter);
-          });
+  private subscribeToState() {
+    this.subscription = this.store.select(state => selectCountries(state))
+      .pipe(map((countries) => countries.map(responseMapper)))
+      .subscribe((c) => this.countries = c);
   }
 
-  constructor(private readonly store: Store<AppState>) {
-    this.countries.filterPredicate = (country, filter) => {
-      const parsedFilter = JSON.parse(filter);
-      
-      return country.name.toLowerCase().includes(parsedFilter.country.toLowerCase()) 
-              && country.region.toLowerCase().includes(parsedFilter.region.toLowerCase());
-    }
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  @ViewChild(FilterComponent)
-  public _filter!: FilterComponent;
+  constructor(private readonly store: Store<AppState>) { }
+
+  private subscription!: Subscription;
 }
 
 const responseMapper = (country: CountryResponse): CountryListModel => {

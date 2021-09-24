@@ -1,63 +1,61 @@
-<table mat-table matSort [dataSource]="dataSource">
+<app-country-list-filter></app-country-list-filter>
+<table mat-table matSort [dataSource]="_dataSource">
   <ng-container matColumnDef="flag">
     <th mat-header-cell *matHeaderCellDef>
-        Flag
+      Flag
     </th>
     <td mat-cell *matCellDef="let country">
       <img loading="lazy" src="{{country.flag}}" />
     </td>
   </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Name
-      </th>
-      <td mat-cell *matCellDef="let country">
-        <a routerLink="{{ '/' + country.cca3}}">{{country.name}}</a>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="region">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Region
-      </th>
-      <td mat-cell *matCellDef="let country">
-        {{country.region}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="capital">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Capital
-      </th>
-      <td mat-cell *matCellDef="let country">
-        {{country.capital}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="area">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Area
-      </th>
-      <td mat-cell *matCellDef="let country">
-        {{country.area}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="borders">
-      <th mat-header-cell *matHeaderCellDef>Borders</th>
-      <td mat-cell *matCellDef="let country">
-        {{country.borders }}
-      </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="noData">
-      <td class="text-align-center" 
-            mat-footer-cell *matFooterCellDef 
-            [attr.colspan]="_columns.length">
-        No records found.
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="_columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: _columns;"></tr>
-  
-    <tr mat-footer-row 
-        *matFooterRowDef="['noData']" 
-        [hidden]="(dataSource.data)?.length !== 0"></tr> -->
-  </table>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Name
+    </th>
+    <td mat-cell *matCellDef="let country">
+      <a routerLink="{{ '/' + country.cca3}}">{{country.name}}</a>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="region">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Region
+    </th>
+    <td mat-cell *matCellDef="let country">
+      {{country.region}}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="capital">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Capital
+    </th>
+    <td mat-cell *matCellDef="let country">
+      {{country.capital}}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="area">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Area
+    </th>
+    <td mat-cell *matCellDef="let country">
+      {{country.area}}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="borders">
+    <th mat-header-cell *matHeaderCellDef>Borders</th>
+    <td mat-cell *matCellDef="let country">
+      {{country.borders }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="noData">
+    <td mat-footer-cell *matFooterCellDef [attr.colspan]="_displayColumns.length">
+      No records found.
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="_displayColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: _displayColumns;"></tr>
+
+  <tr mat-footer-row *matFooterRowDef="['noData']" 
+        [hidden]="(_dataSource.data)?.length !== 0"></tr>
+</table>
