@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { CountryResponse } from '../../../rest-countries';
 import { selectCountries, AppState, getCountriesRequest } from '../../../state';
 
-import { CountryListModel } from '../../service/country-list.model';
+import { CountryListModel } from '../../country-list.model';
 
 
 @Component({

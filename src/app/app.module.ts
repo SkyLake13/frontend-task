@@ -19,7 +19,14 @@ import { CountriesEffects } from './state/effects/countries.effects';
 
 const rootReducer = {
   countries: countriesReducer
-}
+};
+
+const NGRX_MODULES = [
+  StoreModule.forRoot(rootReducer),
+  EffectsModule.forRoot([
+    CountriesEffects
+  ])
+]
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -37,13 +44,13 @@ const MATERIAL_MODULES = [
     AppRoutingModule,
     BrowserAnimationsModule,
     ...MATERIAL_MODULES,
-    StoreModule.forRoot(rootReducer),
-    EffectsModule.forRoot([
-      CountriesEffects
-    ]),
+    ...NGRX_MODULES,
+    ...environment.imports,
     RestCountriesModule.forRoot(environment.API_BASE_URL)
   ],
   bootstrap: [ AppComponent ],
 })
-export class AppModule {
-}
+export class AppModule { }
+
+
+
