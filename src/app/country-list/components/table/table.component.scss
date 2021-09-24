@@ -1,12 +1,16 @@
-.table {
+table {
     width: 100%;
 }
 
-.cell {
+.mat-header-cell {
     padding-right: 20px;
 }
 
-.flag {
+.mat-cell {
+    padding-right: 20px;
+}
+
+.mat-column-flag {
     img {
         height: 30px;width: 40px;
     }

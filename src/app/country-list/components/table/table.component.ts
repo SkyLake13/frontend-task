@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, 
+  Component, Input, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-country-table',
@@ -8,9 +9,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent {
+export class TableComponent implements AfterViewInit {
   @Input()
   public dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatSort)
+  public sort!: MatSort;
+
+  public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
 
   public _columns = ['flag', 'name', 'capital', 'area', 'region', 'borders'];
 }

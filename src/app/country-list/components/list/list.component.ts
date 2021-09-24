@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 
 import { CountryResponse } from '../../../rest-countries';
 import { selectCountries, AppState, getCountriesRequest } from '../../../state';
 
 import { CountryListModel } from '../../country-list.model';
+import { FilterComponent } from '../filter/filter.component';
 
 
 @Component({
@@ -15,18 +16,29 @@ import { CountryListModel } from '../../country-list.model';
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent {
+export class ListComponent implements OnInit, AfterViewInit {
   public countries = new MatTableDataSource();
-
-  constructor(private readonly store: Store<AppState>) { }
 
   public ngOnInit() {
    this.store.select(state => selectCountries(state))
     .pipe(map((countries) => countries.map(responseMapper)))
     .subscribe((c) => this.countries.data = c);
 
-    this.store.dispatch(getCountriesRequest());
+    // this.store.dispatch(getCountriesRequest());
   }
+
+  public ngAfterViewInit(): void {
+    this._filter.form.valueChanges
+          .pipe(debounceTime(400))
+          .subscribe((filter) => {
+            console.log(filter);
+          });
+  }
+
+  constructor(private readonly store: Store<AppState>) { }
+
+  @ViewChild(FilterComponent)
+  public _filter!: FilterComponent;
 }
 
 const responseMapper = (country: CountryResponse): CountryListModel => {
