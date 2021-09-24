@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { debounceTime, map } from 'rxjs/operators';
 
 import { CountryResponse } from '../../../rest-countries';
-import { selectCountries, AppState, getCountriesRequest } from '../../../state';
+import { selectCountries, AppState, getCountries } from '../../../state';
 
 import { CountryListModel } from '../../country-list.model';
 import { FilterComponent } from '../filter/filter.component';
@@ -24,7 +24,7 @@ export class ListComponent implements OnInit, AfterViewInit {
     .pipe(map((countries) => countries.map(responseMapper)))
     .subscribe((c) => this.countries.data = c);
 
-    this.store.dispatch(getCountriesRequest());
+    this.store.dispatch(getCountries());
   }
 
   public ngAfterViewInit(): void {

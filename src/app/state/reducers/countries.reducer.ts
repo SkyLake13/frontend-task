@@ -1,6 +1,11 @@
 import { createReducer, on } from "@ngrx/store";
-import { CountryResponse } from "src/app/rest-countries";
-import { filterCountries, getCountriesRequest, getCountriesSuccess, getCountry } from "../actions/countries.actions";
+
+import { CountryResponse } from "../../rest-countries";
+import {
+    filterCountries, getCountriesSuccess,
+    getCountry,
+    getCountrySuccess
+} from "../actions/countries.actions";
 
 export interface CountriesState {
     countries: CountryResponse[],
@@ -24,19 +29,16 @@ const initialState: CountriesState = {
 
 const _countriesReducer = createReducer(
     initialState,
-    on(getCountriesRequest, (state) => {
-        return { ... state }
-    }),
     on(getCountriesSuccess, (state, { countries }) => {
-        return { 
-            ... state,
+        return {
+            ...state,
             countries: [...countries]
         }
     }),
     on(filterCountries, (state, payload) => {
-        return { 
+        return {
             ...state,
-            filter: { 
+            filter: {
                 ...payload
             }
         }
@@ -44,7 +46,14 @@ const _countriesReducer = createReducer(
     on(getCountry, (state, { code }) => {
         return {
             ...state,
-            countryDetail: state.countries.find((country) => country.cca3 === code)
+            countryDetail: state.countries
+                .find((country) => country.cca3.toLowerCase() === code.toLowerCase())
+        }
+    }),
+    on(getCountrySuccess, (state, { country }) => {
+        return {
+            ...state,
+            countryDetail: country
         }
     })
 );

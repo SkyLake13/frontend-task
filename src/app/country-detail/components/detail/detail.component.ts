@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, 
+  Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, map, switchMap, takeWhile } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AppState, getCountry } from '../../../state';
 
 @Component({
@@ -27,9 +28,9 @@ export class DetailComponent implements OnInit {
 
     this.route.paramMap
       .pipe(
-        takeWhile((parmas) => parmas.has('code')),
+        filter((parmas) => parmas.has('code')),
         map((params) => params.get('code'))
       )
-      .subscribe((code) => this.store.dispatch(getCountry({ code })));
+      .subscribe((code) => code !== null && this.store.dispatch(getCountry({ code })));
   }
 }
