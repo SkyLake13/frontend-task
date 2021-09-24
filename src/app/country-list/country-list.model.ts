@@ -6,4 +6,5 @@ export interface CountryListModel {
     borders: string[];
     area: number;
     flag: string;
+    cca3: string;
 }

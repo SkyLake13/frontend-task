@@ -37,6 +37,7 @@ const responseMapper = (country: CountryResponse): CountryListModel => {
     capital: country.capital,
     area: country.area,
     borders: country.borders,
-    flag: country.flags[0]
+    flag: country.flags[0],
+    cca3: country.cca3
   }
 }

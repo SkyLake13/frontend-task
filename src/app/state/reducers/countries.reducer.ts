@@ -1,10 +1,11 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
 import { CountryResponse } from "src/app/rest-countries";
-import { filterCountries, getCountriesRequest, getCountriesSuccess } from "../actions/countries.actions";
+import { filterCountries, getCountriesRequest, getCountriesSuccess, getCountry } from "../actions/countries.actions";
 
 export interface CountriesState {
     countries: CountryResponse[],
-    filter: FilterState
+    filter: FilterState,
+    countryDetail?: CountryResponse,
 }
 
 export interface FilterState {
@@ -17,7 +18,8 @@ const initialState: CountriesState = {
     filter: {
         name: null,
         region: null
-    }
+    },
+    countryDetail: undefined
 }
 
 const _countriesReducer = createReducer(
@@ -37,6 +39,12 @@ const _countriesReducer = createReducer(
             filter: { 
                 ...payload
             }
+        }
+    }),
+    on(getCountry, (state, { code }) => {
+        return {
+            ...state,
+            countryDetail: state.countries.find((country) => country.cca3 === code)
         }
     })
 );

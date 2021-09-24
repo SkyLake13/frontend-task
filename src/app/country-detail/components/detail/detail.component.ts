@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { filter, map, switchMap, takeWhile } from 'rxjs/operators';
-import { DetailService } from '../../service/detail.service';
+import { AppState, getCountry } from '../../../state';
 
 @Component({
   selector: 'app-detail',
@@ -12,21 +13,23 @@ import { DetailService } from '../../service/detail.service';
 export class DetailComponent implements OnInit {
   public country: any;
   constructor(
-    private readonly service: DetailService,
     private readonly route: ActivatedRoute,
-    private readonly cdr: ChangeDetectorRef) { }
+    private readonly cdr: ChangeDetectorRef,
+    private readonly store: Store<AppState>) { }
 
   public ngOnInit(): void {
+
+    this.store.select(state => state.countries.countryDetail)
+      .subscribe((country) => { 
+        this.country = country;
+        this.cdr.markForCheck();
+      });
+
     this.route.paramMap
       .pipe(
         takeWhile((parmas) => parmas.has('code')),
-        map((params) => params.get('code')),
-        switchMap((code) => this.service.getCountry(code || ''))
+        map((params) => params.get('code'))
       )
-      .subscribe((country) => {
-        console.log(country)
-        this.country = country[0];
-        this.cdr.markForCheck();
-      });
+      .subscribe((code) => this.store.dispatch(getCountry({ code })));
   }
 }
