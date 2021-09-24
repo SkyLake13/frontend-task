@@ -10,13 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { searchReducer } from './ngrx/reducers/search-reducer';
-import { AppEffects } from './ngrx/effects/app.effects';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestCountriesModule } from './rest-countries';
 import { environment } from '../environments/environment';
+import { countriesReducer } from './state/reducers/countries.reducer';
+import { CountriesEffects } from './state/effects/countries.effects';
+
+const rootReducer = {
+  countries: countriesReducer
+}
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -34,8 +37,10 @@ const MATERIAL_MODULES = [
     AppRoutingModule,
     BrowserAnimationsModule,
     ...MATERIAL_MODULES,
-    StoreModule.forRoot({ search: searchReducer }),
-    EffectsModule.forRoot([ AppEffects ]),
+    StoreModule.forRoot(rootReducer),
+    EffectsModule.forRoot([
+      CountriesEffects
+    ]),
     RestCountriesModule.forRoot(environment.API_BASE_URL)
   ],
   bootstrap: [ AppComponent ],
