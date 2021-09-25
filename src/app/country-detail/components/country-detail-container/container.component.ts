@@ -4,7 +4,9 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { AppState, getCountry } from '../../../state';
+import { AppState, getCountry } from '@state';
+
+import { CODE_PATH_PARAM } from '../../../constants';
 
 @Component({
   selector: 'app-country-detail-container',
@@ -28,8 +30,8 @@ export class CountryDetailContainerComponent implements OnInit, OnDestroy {
   private dispatchGetCountry() {
     this.subscription = this.route.paramMap
       .pipe(
-        filter((parmas) => parmas.has('code')),
-        map((params) => params.get('code'))
+        filter((parmas) => parmas.has(CODE_PATH_PARAM)),
+        map((params) => params.get(CODE_PATH_PARAM))
       )
       .subscribe((code) => code !== null && this.store.dispatch(getCountry({ code })));
   }

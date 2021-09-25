@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,13 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { RestCountriesModule } from '@rest-countries';
+import { countriesReducer, CountriesEffects } from '@state';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RestCountriesModule } from './rest-countries';
 import { environment } from '../environments/environment';
-import { countriesReducer } from './state/reducers/countries.reducer';
-import { CountriesEffects } from './state/effects/countries.effects';
-import { ServiceWorkerModule } from '@angular/service-worker';
+
+
 
 const rootReducer = {
   countries: countriesReducer

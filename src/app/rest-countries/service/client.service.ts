@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { API_BASE_URL } from '../injection-tokens';
 import { APIClient } from '../api-client';
 import { CountryResponse } from '../response-models/country.response';
-import { map } from 'rxjs/operators';
+
 
 const ALL = 'all';
 const BY_CODE = 'alpha';

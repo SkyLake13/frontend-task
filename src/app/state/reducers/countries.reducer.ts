@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 
-import { CountryResponse } from "../../rest-countries";
+import { CountryResponse } from "@rest-countries";
+
 import {
     filterCountries, getCountriesSuccess,
     getCountry,

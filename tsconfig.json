@@ -19,7 +19,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@rest-countries/*": ["src/app/rest-countries/*"],
+      "@rest-countries": ["src/app/rest-countries/index"],
+      "@state/*": ["src/app/state/*"],
+      "@state": ["src/app/state/index"],
+      "@country-detail/*": ["src/app/country-detail/*"],
+      "@country-detail": ["src/app/country-detail/index"],
+      "@country-list/*": ["src/app/country-list/*"],
+      "@country-list": ["src/app/country-list/index"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CountryResponse } from '../../../rest-countries';
-import { selectCountries, AppState, getCountries } from '../../../state';
+import { CountryResponse } from '@rest-countries';
+import { selectCountries, AppState, getCountries } from '@state';
+
 import { CountryListModel } from '../../country-list.model';
 
 @Component({

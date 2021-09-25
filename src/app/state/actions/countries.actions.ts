@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { CountryResponse } from '../../rest-countries';
+
+import { CountryResponse } from '@rest-countries';
 
 export const getCountries = createAction('[Countries List] Get all countries');
 export const getCountriesSuccess = createAction('[Countries List] Get all countries success', props<GetCountriesSuccess>())

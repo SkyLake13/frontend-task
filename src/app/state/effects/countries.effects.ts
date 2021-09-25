@@ -3,7 +3,8 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { filter, map, switchMap, withLatestFrom } from "rxjs/operators";
 
-import { APIClient, API_CLIENT } from "../../rest-countries";
+import { APIClient, API_CLIENT } from "@rest-countries";
+
 import {
     getCountries, getCountriesSuccess,
     getCountry, getCountrySuccess

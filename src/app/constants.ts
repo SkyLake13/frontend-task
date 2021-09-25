@@ -1,0 +1,1 @@
+export const CODE_PATH_PARAM = 'code';
