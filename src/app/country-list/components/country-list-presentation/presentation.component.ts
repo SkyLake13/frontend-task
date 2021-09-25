@@ -1,12 +1,11 @@
 import { AfterViewInit, ChangeDetectionStrategy, 
-  Component, Input, OnDestroy, ViewChild } from '@angular/core';
+  Component, Input, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+
+import { FilterParams } from '@state';
 
 import { CountryListModel } from '../../country-list.model';
-import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-country-list-presentation',
@@ -14,7 +13,12 @@ import { FilterComponent } from '../filter/filter.component';
   styleUrls: ['./presentation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CountryListPresentationComponent implements AfterViewInit, OnDestroy {
+export class CountryListPresentationComponent implements AfterViewInit {
+  @Input()
+  public set filter(value: FilterParams) {
+    this._dataSource.filter = JSON.stringify(value);
+  }
+  
   @Input()
   public set data(countries: CountryListModel[] | null) {
     if(countries) {
@@ -24,37 +28,21 @@ export class CountryListPresentationComponent implements AfterViewInit, OnDestro
 
   public ngAfterViewInit(): void {
     this.setSorter();
-    this.subscribeToFilter();
   }
 
   private setSorter() {
     this._dataSource.sort = this._sort;
   }
 
-  private subscribeToFilter() {
-    this.subscription = this._filter.form.valueChanges
-      .pipe(debounceTime(400))
-      .subscribe((filter) => this._dataSource.filter = JSON.stringify(filter));
-  }
-
-  public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   constructor() {
     this._dataSource.filterPredicate = filter;
   }
-
-  @ViewChild(FilterComponent)
-  public _filter!: FilterComponent;
   
   @ViewChild(MatSort)
   public _sort!: MatSort;
 
   public _dataSource = new MatTableDataSource<CountryListModel>();
   public _displayColumns = ['flag', 'name', 'capital', 'area', 'region', 'borders'];
-
-  private subscription!: Subscription;
 }
 
 

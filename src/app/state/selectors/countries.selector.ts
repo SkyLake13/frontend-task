@@ -11,7 +11,3 @@ export const selectCountries = createSelector(
   (state: CountriesState) => state.countries,
 );
 
-export const selectFilter = createSelector(
-  selectCountriesState,
-  (state: CountriesState) => state.filter
-);
