@@ -7,12 +7,12 @@ import { filter, map } from 'rxjs/operators';
 import { AppState, getCountry } from '../../../state';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss'],
+  selector: 'app-country-detail-container',
+  templateUrl: './container.component.html',
+  styleUrls: ['./container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DetailComponent implements OnInit, OnDestroy {
+export class CountryDetailContainerComponent implements OnInit, OnDestroy {
   public get country() {
     return this.store.select(state => state.countries.countryDetail);
   }

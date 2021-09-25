@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CountryDetailRoutingModule } from './country-detail-routing.module';
-import { DetailComponent } from './components/detail/detail.component';
-import { CountryDetailPresentationComponent } from './components/country-detail-presentation/country-detail-presentation.component';
+import { CountryDetailContainerComponent } from './components/country-detail-container/container.component';
+import { CountryDetailPresentationComponent } from './components/country-detail-presentation/presentation.component';
 
 
 @NgModule({
   declarations: [
-    DetailComponent,
+    CountryDetailContainerComponent,
     CountryDetailPresentationComponent
   ],
   imports: [
