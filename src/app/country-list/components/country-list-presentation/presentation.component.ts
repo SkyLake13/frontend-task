@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy,
   Component, Input, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { COUNTRY_ROUTE } from 'src/app/constants';
 
 import { CountryListModel } from '../../country-list.model';
 
@@ -27,4 +28,5 @@ export class CountryListPresentationComponent implements AfterViewInit {
   public _sort!: MatSort;
 
   public _displayColumns = ['flag', 'name', 'capital', 'area', 'region', 'borders'];
+  public country_route = COUNTRY_ROUTE;
 }
