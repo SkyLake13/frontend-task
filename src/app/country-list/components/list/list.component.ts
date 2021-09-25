@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CountryResponse } from '../../../rest-countries';
 import { selectCountries, AppState, getCountries } from '../../../state';
-
 import { CountryListModel } from '../../country-list.model';
 
 @Component({
@@ -14,27 +13,17 @@ import { CountryListModel } from '../../country-list.model';
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent implements OnInit, OnDestroy {
-  public countries: CountryListModel[] = [];
+export class ListComponent implements OnInit {
+  public get countries(): Observable<CountryListModel[]> {
+    return this.store.select(state => selectCountries(state))
+      .pipe(map((countries) => countries.map(responseMapper)))
+  }
 
   public ngOnInit() {
-    this.subscribeToState();
     this.store.dispatch(getCountries());
   }
 
-  private subscribeToState() {
-    this.subscription = this.store.select(state => selectCountries(state))
-      .pipe(map((countries) => countries.map(responseMapper)))
-      .subscribe((c) => this.countries = c);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   constructor(private readonly store: Store<AppState>) { }
-
-  private subscription!: Subscription;
 }
 
 const responseMapper = (country: CountryResponse): CountryListModel => {

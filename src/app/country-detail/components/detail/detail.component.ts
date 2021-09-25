@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, 
-  Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+
 import { AppState, getCountry } from '../../../state';
 
 @Component({
@@ -11,26 +12,32 @@ import { AppState, getCountry } from '../../../state';
   styleUrls: ['./detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DetailComponent implements OnInit {
-  public country: any;
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly cdr: ChangeDetectorRef,
-    private readonly store: Store<AppState>) { }
+export class DetailComponent implements OnInit, OnDestroy {
+  public get country() {
+    return this.store.select(state => state.countries.countryDetail);
+  }
 
   public ngOnInit(): void {
+    this.dispatchGetCountry();
+  }
 
-    this.store.select(state => state.countries.countryDetail)
-      .subscribe((country) => { 
-        this.country = country;
-        this.cdr.markForCheck();
-      });
+  public ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
-    this.route.paramMap
+  private dispatchGetCountry() {
+    this.subscription = this.route.paramMap
       .pipe(
         filter((parmas) => parmas.has('code')),
         map((params) => params.get('code'))
       )
       .subscribe((code) => code !== null && this.store.dispatch(getCountry({ code })));
   }
+
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly store: Store<AppState>
+  ) { }
+
+  private subscription!: Subscription;
 }

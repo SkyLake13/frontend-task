@@ -16,8 +16,10 @@ import { FilterComponent } from '../filter/filter.component';
 })
 export class TableComponent implements AfterViewInit, OnDestroy {
   @Input()
-  public set data(countries: CountryListModel[]) {
-    this._dataSource.data = countries;
+  public set data(countries: CountryListModel[] | null) {
+    if(countries) {
+      this._dataSource.data = countries;
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -45,6 +47,7 @@ export class TableComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild(FilterComponent)
   public _filter!: FilterComponent;
+  
   @ViewChild(MatSort)
   public _sort!: MatSort;
 
