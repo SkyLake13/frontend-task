@@ -42,7 +42,10 @@
   <ng-container matColumnDef="borders">
     <th mat-header-cell *matHeaderCellDef>Borders</th>
     <td mat-cell *matCellDef="let country">
-      {{country.borders }}
+      <a *ngFor="let border of country.borders" 
+          routerLink="{{ '/' + country_route + '/' + border}}">
+        {{border}}
+      </a>
     </td>
   </ng-container>
 
