@@ -15,14 +15,14 @@ export interface CountriesState {
 }
 
 export interface FilterState {
-    name: string | null,
+    country: string | null,
     region: string | null
 }
 
 const initialState: CountriesState = {
     countries: [],
     filter: {
-        name: null,
+        country: null,
         region: null
     },
     countryDetail: undefined

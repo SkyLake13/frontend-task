@@ -8,8 +8,8 @@ export const filterCountries = createAction('[Countries List] filter countries l
 export const getCountry = createAction('[Country detail] Get country by code', props<{ code: string }>());
 export const getCountrySuccess = createAction('[Country detail] Get country by code success', props<{ country: CountryResponse }>());
 
-interface FilterParams {
-    name: string,
+export interface FilterParams {
+    country: string,
     region: string
 }
 

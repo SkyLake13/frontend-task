@@ -10,3 +10,8 @@ export const selectCountries = createSelector(
   selectCountriesState,
   (state: CountriesState) => state.countries,
 );
+
+export const selectFilter = createSelector(
+  selectCountriesState,
+  (state: CountriesState) => state.filter
+);
