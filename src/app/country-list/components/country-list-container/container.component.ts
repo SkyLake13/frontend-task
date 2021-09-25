@@ -8,12 +8,12 @@ import { selectCountries, AppState, getCountries } from '../../../state';
 import { CountryListModel } from '../../country-list.model';
 
 @Component({
-  selector: 'app-countires',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  selector: 'app-country-list-container',
+  templateUrl: './container.component.html',
+  styleUrls: ['./container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent implements OnInit {
+export class CountryListContainerComponent implements OnInit {
   public get countries(): Observable<CountryListModel[]> {
     return this.store.select(state => selectCountries(state))
       .pipe(map((countries) => countries.map(responseMapper)))

@@ -9,12 +9,12 @@ import { CountryListModel } from '../../country-list.model';
 import { FilterComponent } from '../filter/filter.component';
 
 @Component({
-  selector: 'app-country-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+  selector: 'app-country-list-presentation',
+  templateUrl: './presentation.component.html',
+  styleUrls: ['./presentation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements AfterViewInit, OnDestroy {
+export class CountryListPresentationComponent implements AfterViewInit, OnDestroy {
   @Input()
   public set data(countries: CountryListModel[] | null) {
     if(countries) {

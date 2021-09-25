@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComponent } from './components/list/list.component';
+import { CountryListContainerComponent } from './components/country-list-container/container.component';
 
 const routes: Routes = [
-  { path: '', component: ListComponent }
+  { path: '', component: CountryListContainerComponent }
 ];
 
 @NgModule({

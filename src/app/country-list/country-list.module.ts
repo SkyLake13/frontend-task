@@ -7,8 +7,8 @@ import { MatSortModule } from '@angular/material/sort';
 
 
 import { CountryListRoutingModule } from './country-list-routing.module';
-import { ListComponent } from './components/list/list.component';
-import { TableComponent } from './components/table/table.component';
+import { CountryListContainerComponent } from './components/country-list-container/container.component';
+import { CountryListPresentationComponent } from './components/country-list-presentation/presentation.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -20,8 +20,8 @@ const MATERIAL_MODULES = [
 
 @NgModule({
   declarations: [
-    ListComponent,
-    TableComponent,
+    CountryListContainerComponent,
+    CountryListPresentationComponent,
     FilterComponent
   ],
   imports: [
