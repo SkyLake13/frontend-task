@@ -16,6 +16,7 @@ import { RestCountriesModule } from './rest-countries';
 import { environment } from '../environments/environment';
 import { countriesReducer } from './state/reducers/countries.reducer';
 import { CountriesEffects } from './state/effects/countries.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const rootReducer = {
   countries: countriesReducer
@@ -46,7 +47,13 @@ const MATERIAL_MODULES = [
     ...MATERIAL_MODULES,
     ...NGRX_MODULES,
     ...environment.imports,
-    RestCountriesModule.forRoot(environment.API_BASE_URL)
+    RestCountriesModule.forRoot(environment.API_BASE_URL),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   bootstrap: [ AppComponent ],
 })
