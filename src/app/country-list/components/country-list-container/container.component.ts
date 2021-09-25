@@ -57,8 +57,7 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
 
   private get countries(): Observable<CountryListModel[]> {
     return this.store.select(selectCountries)
-      .pipe(map((countries) => countries.map(responseMapper)))
-      .pipe(tap((f) => console.log(f)));
+      .pipe(map((countries) => countries.map(responseMapper)));
   }
 
   @ViewChild(FilterComponent)

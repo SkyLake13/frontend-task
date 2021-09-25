@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { AppState, getCountry } from '@state';
+import { AppState, clearCountry, getCountry } from '@state';
 
 import { CODE_PATH_PARAM } from '../../../constants';
 
@@ -24,6 +24,7 @@ export class CountryDetailContainerComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
+    this.dispatchClearCountry();
     this.subscription.unsubscribe();
   }
 
@@ -34,6 +35,10 @@ export class CountryDetailContainerComponent implements OnInit, OnDestroy {
         map((params) => params.get(CODE_PATH_PARAM))
       )
       .subscribe((code) => code !== null && this.store.dispatch(getCountry({ code })));
+  }
+
+  private dispatchClearCountry() {
+    this.store.dispatch(clearCountry());
   }
 
   constructor(
