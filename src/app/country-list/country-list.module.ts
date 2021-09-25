@@ -6,6 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 import { CountryListRoutingModule } from './country-list-routing.module';
@@ -18,7 +19,8 @@ const MATERIAL_MODULES = [
   MatTableModule,
   MatInputModule,
   MatSortModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatPaginatorModule
 ]
 
 @NgModule({
