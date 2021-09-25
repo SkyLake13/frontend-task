@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 import { CountryListRoutingModule } from './country-list-routing.module';
@@ -16,7 +17,8 @@ import { FilterComponent } from './components/filter/filter.component';
 const MATERIAL_MODULES = [
   MatTableModule,
   MatInputModule,
-  MatSortModule
+  MatSortModule,
+  MatAutocompleteModule
 ]
 
 @NgModule({

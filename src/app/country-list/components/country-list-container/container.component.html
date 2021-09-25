@@ -1,2 +1,2 @@
-<app-country-list-filter [filter]="(filter | async)"></app-country-list-filter>
+<app-country-list-filter [filter]="(filter | async)" [regions]="regions | async" [countries]="countryNames | async"></app-country-list-filter>
 <app-country-list-presentation [dataSource]="_dataSource"></app-country-list-presentation>

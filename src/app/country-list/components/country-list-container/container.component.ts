@@ -22,6 +22,14 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
     return this.store.select(selectFilter);
   }
 
+  public get regions(): Observable<string[]> {
+    return this.countries.pipe(map((countries) => [...new Set(countries.map((c) => c.region).sort())]));
+  }
+
+  public get countryNames(): Observable<string[]> {
+    return this.countries.pipe(map((countries) => countries.map((c) => c.name).sort()));
+  }
+
   public ngOnInit() {
     this.store.dispatch(getCountries());
     this.subscribeToFilter();

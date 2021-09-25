@@ -11,6 +11,12 @@ export class FilterComponent implements OnInit {
   @Input()
   public filter: FilterParams | null = null;
 
+  @Input()
+  public regions: string[] | null = [];
+
+  @Input()
+  public countries: string[] | null = [];
+
   public form!: FormGroup;
 
   public ngOnInit(): void {
