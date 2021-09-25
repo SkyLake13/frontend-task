@@ -4,7 +4,7 @@ export const environment = {
   production: false,
   API_BASE_URL: 'https://restcountries.com/v3',
   imports: [
-    // StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument()
   ]
 };
 

@@ -1,4 +1,4 @@
-<table mat-table matSort [dataSource]="_dataSource">
+<table mat-table matSort [dataSource]="dataSource">
   <ng-container matColumnDef="flag">
     <th mat-header-cell *matHeaderCellDef>
       Flag
@@ -56,5 +56,5 @@
   <tr mat-row *matRowDef="let row; columns: _displayColumns;"></tr>
 
   <tr mat-footer-row *matFooterRowDef="['noData']" 
-        [hidden]="(_dataSource.data)?.length !== 0"></tr>
+        [hidden]="(dataSource.data)?.length !== 0"></tr>
 </table>

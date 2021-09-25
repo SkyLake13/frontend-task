@@ -1,13 +1,15 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, timer } from 'rxjs';
-import { debounce, debounceTime, map, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime, map, tap } from 'rxjs/operators';
 
 import { CountryResponse } from '@rest-countries';
-import { selectCountries, AppState, getCountries, filterCountries, selectFilter, FilterParams } from '@state';
+import { selectCountries, AppState, getCountries, 
+  filterCountries, selectFilter, FilterParams } from '@state';
 
 import { CountryListModel } from '../../country-list.model';
 import { FilterComponent } from '../filter/filter.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-country-list-container',
@@ -16,20 +18,14 @@ import { FilterComponent } from '../filter/filter.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryListContainerComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  public get countries(): Observable<CountryListModel[]> {
-    return this.store.select(selectCountries)
-      .pipe(map((countries) => countries.map(responseMapper)))
-      .pipe(tap((f) => console.log(f)));
-  }
-
   public get filter(): Observable<FilterParams> {
-    return this.store.select(selectFilter)
-    .pipe(tap((f) => console.log(f)));
+    return this.store.select(selectFilter);
   }
 
   public ngOnInit() {
     this.store.dispatch(getCountries());
+    this.subscribeToFilter();
+    this.subscribeToCountries();
   }
 
   public ngAfterViewInit(): void {
@@ -37,22 +33,49 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
   }
 
   public ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
-  constructor(private readonly store: Store<AppState>) { }
+  constructor(private readonly store: Store<AppState>) {
+    this._dataSource = new MatTableDataSource();
+    this._dataSource.filterPredicate = filter;
+  }
 
   private dispatchFilterChanges() {
-    this.subscription = this._filter.form.valueChanges
-      .pipe(debounce(() => timer(400)))
-      .subscribe((filter) => this.store.dispatch(filterCountries(filter)));
+    this.subscription.add(this._filter.form.valueChanges
+      .pipe(debounceTime(400))
+      .subscribe((filter) => this.store.dispatch(filterCountries(filter))));
+  }
+
+  private subscribeToFilter() {
+    this.subscription.add(this.filter.subscribe((f) => this._dataSource.filter = JSON.stringify(f)));
+  }
+
+  private subscribeToCountries() {
+    this.subscription.add(this.countries.subscribe((countries) => this._dataSource.data = countries));
+  }
+
+  private get countries(): Observable<CountryListModel[]> {
+    return this.store.select(selectCountries)
+      .pipe(map((countries) => countries.map(responseMapper)))
+      .pipe(tap((f) => console.log(f)));
   }
 
   @ViewChild(FilterComponent)
   public _filter!: FilterComponent;
 
-  private subscription!: Subscription;
+  public _dataSource!: MatTableDataSource<CountryListModel>;
+
+  private subscription = new Subscription();
 }
+
+
+const filter: (data: any, filter: string) => boolean = (country, filter) => {
+  const parsedFilter = JSON.parse(filter);
+
+  return country.name.toLowerCase().includes(parsedFilter.country.toLowerCase())
+    && country.region.toLowerCase().includes(parsedFilter.region.toLowerCase());
+};
 
 const responseMapper = (country: CountryResponse): CountryListModel => {
   return {
