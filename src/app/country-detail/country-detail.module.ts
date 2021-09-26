@@ -9,14 +9,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { CountryDetailRoutingModule } from './country-detail-routing.module';
 import { CountryDetailContainerComponent } from './components/country-detail-container/container.component';
 import { CountryDetailPresentationComponent } from './components/country-detail-presentation/presentation.component';
-import { SharedModule } from '../shared/shared.module';
+import { BorderedCountryComponent } from './components/bordered-country/bordered-country.component';
 
 
 
 @NgModule({
   declarations: [
     CountryDetailContainerComponent,
-    CountryDetailPresentationComponent
+    CountryDetailPresentationComponent,
+    BorderedCountryComponent
   ],
   imports: [
     CommonModule,
@@ -24,8 +25,7 @@ import { SharedModule } from '../shared/shared.module';
     MatCardModule,
     MatListModule,
     MatToolbarModule,
-    MatIconModule,
-    SharedModule
+    MatIconModule
   ]
 })
 export class CountryDetailModule { }

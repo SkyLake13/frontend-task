@@ -1,0 +1,15 @@
+<div class="container">
+    <ng-container *ngIf="country | async; else code; let borderCountry">
+        <img src={{borderCountry.flags[0]}}/>
+        <a routerLink="{{ '/' + country_route + '/' + borderCountry.cca3}}">
+            {{borderCountry?.name?.common}}
+        </a>
+    </ng-container>
+    
+</div>
+
+<ng-template #code>
+    <a routerLink="{{ '/' + country_route + '/' + countryCode}}">
+        {{countryCode}}
+    </a>
+</ng-template>

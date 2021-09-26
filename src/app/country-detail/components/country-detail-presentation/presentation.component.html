@@ -34,13 +34,7 @@
                 <div class="borders-header">Borders</div>
                 <div class="border-items-container">
                     <div class="border-item" *ngFor="let border of country.borders">
-                        <ng-container *ngIf="border | country | async; let borderCountry">
-                            <img src={{borderCountry.flags[0]}}/>
-                            <a routerLink="{{ '/' + country_route + '/' + borderCountry.cca3}}">
-                                {{borderCountry?.name?.common}}
-                            </a>
-                            <div></div>
-                        </ng-container>
+                        <app-bordered-country [countryCode]="border"></app-bordered-country>
                     </div>
                 </div>
             </div>
