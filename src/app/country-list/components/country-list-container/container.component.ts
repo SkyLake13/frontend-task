@@ -32,7 +32,7 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
   }
 
   public ngOnInit() {
-    this.store.dispatch(getCountries());
+    this.dispatchGetCountries();
     this.subscribeToFilter();
     this.subscribeToCountries();
   }
@@ -48,6 +48,10 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
   constructor(private readonly store: Store<AppState>) {
     this._dataSource = new MatTableDataSource();
     this._dataSource.filterPredicate = filter;
+  }
+
+  private dispatchGetCountries() {
+    this.store.dispatch(getCountries());
   }
 
   private dispatchFilterChanges() {

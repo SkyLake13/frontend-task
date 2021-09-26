@@ -17,6 +17,14 @@ table {
     }
 }
 
+.mat-column-noData {
+    text-align: center;
+}
+
+.mat-column-area {
+    min-width: 80px;
+}
+
 .mat-column-borders {
     a {
         padding-right: 8px;
