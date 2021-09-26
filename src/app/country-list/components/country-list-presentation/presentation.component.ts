@@ -22,15 +22,17 @@ export class CountryListPresentationComponent implements AfterViewInit {
   }
 
   private setSorter() {
-    this.dataSource.sort = this._sort;
-    this.dataSource.paginator = this._paginator;
+    if(this.dataSource) {
+      this.dataSource.sort = this._sort || null;
+      this.dataSource.paginator = this._paginator || null;
+    }
   }
   
   @ViewChild(MatSort)
-  public _sort!: MatSort;
+  public _sort?: MatSort;
 
   @ViewChild(MatPaginator)
-  public _paginator!: MatPaginator;
+  public _paginator?: MatPaginator;
 
   public _displayColumns = ['flag', 'name', 'capital', 'area', 'region', 'borders'];
   public country_route = COUNTRY_ROUTE;

@@ -1,29 +1,29 @@
 <div class="container">
     <mat-card>
         <mat-card-header>
-          <mat-card-title>{{country.name.common}}</mat-card-title>
-          <mat-card-subtitle>{{country.name.official}}</mat-card-subtitle>
+          <mat-card-title>{{country?.name?.common}}</mat-card-title>
+          <mat-card-subtitle>{{country?.name?.official}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             <div class="flex-content">
                 <div>
-                    <img class="flag" src={{country.flags[0]}} alt="Flag">
+                    <img class="flag" src={{country?.flags[0]}} alt="Flag">
                 </div>
                 <div class="primary">
                     <div class="capital">
-                        <span>{{country.capital}}</span>
+                        <span>{{country?.capital}}</span>
                     </div>
                     <div class="sub-region">
-                        <span>{{country.subregion}}</span>
+                        <span>{{country?.subregion}}</span>
                     </div>
                     <div class="region">
-                        <span>{{country.region}}</span>
+                        <span>{{country?.region}}</span>
                     </div>
                     <div class="area">
-                        <span>{{country.area | number}}</span>
+                        <span>{{country?.area | number}}</span>
                         <span> km<sup>2</sup></span>
                     </div>
-                    <div *ngIf="country.unMember">
+                    <div *ngIf="country?.unMember">
                         United Nations member
                     </div>
                 </div>
@@ -33,7 +33,7 @@
             <div class="borders">
                 <div class="borders-header">Borders</div>
                 <div class="border-items-container">
-                    <div class="border-item" *ngFor="let border of country.borders">
+                    <div class="border-item" *ngFor="let border of country?.borders">
                         <app-bordered-country [countryCode]="border"></app-bordered-country>
                     </div>
                 </div>
