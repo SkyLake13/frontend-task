@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AppState, selectLoader } from '@state';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +15,5 @@ export class AppComponent {
     return this.store.select(selectLoader);
   }
 
-  constructor(private readonly store: Store<AppState>) { }
+  constructor(public readonly store: Store<AppState>) { }
 }

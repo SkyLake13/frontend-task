@@ -11,7 +11,8 @@ import { filter, map } from 'rxjs/operators';
 })
 export class CountryPipe implements PipeTransform {
   public transform(countryCode: string): Observable<CountryResponse | undefined> {
-    return this.countries.pipe(map((countries) => countries.find((c) => c.cca3 === countryCode)))
+    return this.countries.pipe(map((countries) => countries
+                    .find((c) => c.cca3.toLowerCase() === countryCode.toLowerCase())))
   }
 
   private get countries(): Observable<CountryResponse[]> {
