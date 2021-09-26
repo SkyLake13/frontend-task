@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { COUNTRY_ROUTE } from 'src/app/constants';
 
 @Component({
   selector: 'app-country-detail-presentation',
@@ -9,4 +10,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 export class CountryDetailPresentationComponent {
   @Input()
   public country: any;
+
+  public country_route = COUNTRY_ROUTE;
 }

@@ -13,6 +13,7 @@ import { CountryListRoutingModule } from './country-list-routing.module';
 import { CountryListContainerComponent } from './components/country-list-container/container.component';
 import { CountryListPresentationComponent } from './components/country-list-presentation/presentation.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 const MATERIAL_MODULES = [
@@ -34,6 +35,7 @@ const MATERIAL_MODULES = [
     CountryListRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     ...MATERIAL_MODULES
   ]
 })

@@ -1,28 +1,48 @@
-<div *ngIf="country">
-    <div style="display: flex;flex-wrap: wrap;">
-        <div>
-            <img style="height: 200px;width: 300px;" src={{country.flags[0]}} />
-        </div>
-        <div>
-            <h3>{{country.name.common}}</h3>
-            <div>{{country.name.official}}</div>
-            <div>{{country.capital}}</div>
-            <div>{{country.region}}</div>
-            <div>{{country.subregion}}</div>
-            <div>{{country.area}}</div>
-        </div>
-    </div>
-    <div>
-        <div>
-            <span>{{country.status}}</span>
-            <span *ngIf="country.unMember"> UN Member</span>
-        </div>
-    </div>
-    <div>
-        <span *ngFor="let border of country.borders" 
-                routerLink="{{ '/' + border}}">
-            {{border}}
-        </span>
-    </div>
-    
+<div *ngIf="country" class="container">
+    <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{country.name.common}}</mat-card-title>
+          <mat-card-subtitle>{{country.name.official}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="flex-content">
+                <div>
+                    <img class="flag" src={{country.flags[0]}} alt="Flag">
+                </div>
+                <div class="primary">
+                    <div class="capital">
+                        <span>{{country.capital}}</span>
+                    </div>
+                    <div class="sub-region">
+                        <span>{{country.subregion}}</span>
+                    </div>
+                    <div class="region">
+                        <span>{{country.region}}</span>
+                    </div>
+                    <div class="area">
+                        <span>{{country.area}}</span>
+                    </div>
+                    <div *ngIf="country.unMember">
+                        United Nations member
+                    </div>
+                </div>
+            </div>
+            
+            <mat-divider></mat-divider>
+            <div class="borders">
+                <div class="borders-header">Borders</div>
+                <div class="border-items-container">
+                    <div class="border-item" *ngFor="let border of country.borders">
+                        <ng-container *ngIf="border | country | async; let borderCountry">
+                            <img src={{borderCountry.flags[0]}}/>
+                            <a routerLink="{{ '/' + country_route + '/' + borderCountry.cca3}}">
+                                {{borderCountry?.name?.common}}
+                            </a>
+                            <div></div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+      </mat-card>
 </div>

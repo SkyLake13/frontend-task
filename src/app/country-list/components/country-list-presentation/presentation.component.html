@@ -44,7 +44,7 @@
     <td mat-cell *matCellDef="let country">
       <a *ngFor="let border of country.borders" 
           routerLink="{{ '/' + country_route + '/' + border}}">
-        {{border}}
+          {{(border | country | async)?.name?.common}}
       </a>
     </td>
   </ng-container>
