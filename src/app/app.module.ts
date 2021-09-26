@@ -7,12 +7,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { RestCountriesModule } from '@rest-countries';
-import { countriesReducer, CountriesEffects, filterReducer } from '@state';
+import { countriesReducer, CountriesEffects, filterReducer, loadingReducer } from '@state';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +23,8 @@ import { environment } from '../environments/environment';
 
 const rootReducer = {
   countries: countriesReducer,
-  filter: filterReducer
+  filter: filterReducer,
+  loader: loadingReducer
 };
 
 const NGRX_MODULES = [
@@ -35,7 +37,8 @@ const NGRX_MODULES = [
 const MATERIAL_MODULES = [
   MatToolbarModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatProgressSpinnerModule
 ]
 
 @NgModule({

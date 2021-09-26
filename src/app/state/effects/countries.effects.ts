@@ -1,14 +1,14 @@
 import { Inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { filter, map, switchMap, withLatestFrom } from "rxjs/operators";
+import { filter, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 
 import { APIClient, API_CLIENT } from "@rest-countries";
 
 import {
     getCountries, getCountriesSuccess,
-    getCountry, getCountrySuccess
-} from "../actions/countries.actions";
+    getCountry, getCountrySuccess, startLoader, stopLoader
+} from "../actions";
 import { AppState } from "../app.state";
 import { selectCountriesState } from "../selectors";
 
@@ -26,9 +26,11 @@ export class CountriesEffects {
             ofType(getCountries),
             withLatestFrom(this.store.select(selectCountriesState)),
             filter(([, countriesState]) => countriesState.countries.length === 0),
+            tap(() => this.store.dispatch(startLoader())),
             switchMap(() => this.clientService.getAllCountries()
                 .pipe(
-                    map((countries) => getCountriesSuccess({ countries }))
+                    map((countries) => getCountriesSuccess({ countries })),
+                    tap(() => this.store.dispatch(stopLoader()))
                 )
             )
         )
@@ -38,9 +40,11 @@ export class CountriesEffects {
             ofType(getCountry),
             withLatestFrom(this.store.select(selectCountriesState)),
             filter(([, countriesState]) => countriesState.countries.length === 0),
+            tap(() => this.store.dispatch(startLoader())),
             switchMap(([action]) => this.clientService.getCountryByCode(action.code)
                 .pipe(
-                    map((country) => getCountrySuccess({ country }))
+                    map((country) => getCountrySuccess({ country })),
+                    tap(() => this.store.dispatch(stopLoader()))
                 )
             )
         )
