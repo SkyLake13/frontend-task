@@ -55,7 +55,7 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
   }
 
   private dispatchFilterChanges() {
-    this.subscription.add(this._filter.form.valueChanges
+    this.subscription.add(this._filter?.form.valueChanges
       .pipe(debounceTime(400))
       .subscribe((filter) => this.store.dispatch(filterCountries(filter))));
   }
@@ -74,9 +74,9 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
   }
 
   @ViewChild(FilterComponent)
-  public _filter!: FilterComponent;
+  public _filter?: FilterComponent;
 
-  public _dataSource!: MatTableDataSource<CountryListModel>;
+  public _dataSource: MatTableDataSource<CountryListModel>;
 
   private subscription = new Subscription();
 }
