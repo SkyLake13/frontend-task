@@ -7,6 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { AppState, clearCountry, getCountry } from '@state';
 
 import { CODE_PATH_PARAM } from '../../../constants';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-country-detail-container',
@@ -17,6 +18,10 @@ import { CODE_PATH_PARAM } from '../../../constants';
 export class CountryDetailContainerComponent implements OnInit, OnDestroy {
   public get country() {
     return this.store.select(state => state.countries.countryDetail);
+  }
+
+  public back() {
+    this.location.back();
   }
 
   public ngOnInit(): void {
@@ -43,7 +48,8 @@ export class CountryDetailContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly store: Store<AppState>
+    private readonly store: Store<AppState>,
+    private readonly location: Location
   ) { }
 
   private subscription!: Subscription;

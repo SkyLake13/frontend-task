@@ -3,15 +3,39 @@
     margin: 32px auto;
 }
 
+@media (max-width: 460px) {
+    .container {
+        width: 98%;
+        margin: 32px auto;
+    }
+
+    .flag {
+        width: 250px;
+        padding-right: 20px;
+    }
+}
+
+@media (min-width: 461px) and (max-width: 615px) {
+    .container {
+        width: 95%;
+        margin: 32px auto;
+    }
+
+    .flag {
+        width: 300px;
+        padding-right: 20px;
+    }
+}
+
 .flex-content {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 15px;
-    
-    .flag {
-        width: 400px;
-        padding-right: 20px;
-    }
+}
+
+.flag {
+    width: 400px;
+    padding-right: 20px;
 }
 
 .primary {

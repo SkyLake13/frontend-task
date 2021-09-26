@@ -20,7 +20,8 @@
                         <span>{{country.region}}</span>
                     </div>
                     <div class="area">
-                        <span>{{country.area}}</span>
+                        <span>{{country.area | number}}</span>
+                        <span> km<sup>2</sup></span>
                     </div>
                     <div *ngIf="country.unMember">
                         United Nations member
