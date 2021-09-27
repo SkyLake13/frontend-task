@@ -92,7 +92,7 @@ const filter: (data: any, filter: string) => boolean = (country, filter) => {
 const responseMapper = (country: CountryResponse): CountryListModel => {
   return {
     name: country.name.common,
-    officialName: country.name.official,
+    officialName: country.name.official || country.name.common,
     region: country.region,
     capital: country.capital,
     area: country.area,

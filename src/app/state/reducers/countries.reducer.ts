@@ -26,7 +26,7 @@ const _countriesReducer = createReducer(
         return {
             ...state,
             countryDetail: state.countries
-                .find((country) => country.cca3.toLowerCase() === code.toLowerCase()) || null
+                .find((country) => country?.cca3?.toLowerCase() === code.toLowerCase()) || null
         }
     }),
     on(getCountrySuccess, (state, { country }) => {
