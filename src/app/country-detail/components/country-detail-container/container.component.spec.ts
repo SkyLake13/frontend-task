@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -27,6 +28,7 @@ describe('CountryDetailContainerComponent', () => {
       providers: [
         provideMockStore({ initialState: initialState }),
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

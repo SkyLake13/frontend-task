@@ -79,7 +79,6 @@ describe('ClientService', () => {
       }];
 
     subscription = service.getCountryByCode$('DEU').subscribe((country) => {
-      console.log(country);
       expect(country).toBeDefined();
       expect(country.cca3).toEqual('DEU');
 

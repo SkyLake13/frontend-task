@@ -13,8 +13,15 @@ describe('CountryListContainer', () => {
         {
           cca3: 'DEU',
           name: {
-            common: 'Germany'
-          }
+            common: 'Germany',
+            official: 'Germany'
+          },
+          region: '',
+          subregion: '',
+          capital: [''],
+          area: 89780,
+          borders: [''],
+          flags: ['']
         }
       ]
     }
