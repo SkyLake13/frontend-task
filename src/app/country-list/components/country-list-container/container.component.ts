@@ -19,16 +19,16 @@ import { MatTableDataSource } from '@angular/material/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryListContainerComponent implements OnInit, AfterViewInit, OnDestroy {
-  public get filter(): Observable<FilterParams> {
+  public get filter$(): Observable<FilterParams> {
     return this.store.select(selectFilter);
   }
 
-  public get regions(): Observable<string[]> {
-    return this.countries.pipe(map((countries) => [...new Set(countries.map((c) => c.region).sort())]));
+  public get regions$(): Observable<string[]> {
+    return this.countries$.pipe(map((countries) => [...new Set(countries.map((c) => c.region).sort())]));
   }
 
-  public get countryNames(): Observable<string[]> {
-    return this.countries.pipe(map((countries) => countries.map((c) => c.name).sort()));
+  public get countryNames$(): Observable<string[]> {
+    return this.countries$.pipe(map((countries) => countries.map((c) => c.name).sort()));
   }
 
   public ngOnInit() {
@@ -61,14 +61,14 @@ export class CountryListContainerComponent implements OnInit, AfterViewInit, OnD
   }
 
   private subscribeToFilter() {
-    this.subscription.add(this.filter.subscribe((f) => this._dataSource.filter = JSON.stringify(f)));
+    this.subscription.add(this.filter$.subscribe((f) => this._dataSource.filter = JSON.stringify(f)));
   }
 
   private subscribeToCountries() {
-    this.subscription.add(this.countries.subscribe((countries) => this._dataSource.data = countries));
+    this.subscription.add(this.countries$.subscribe((countries) => this._dataSource.data = countries));
   }
 
-  private get countries(): Observable<CountryListModel[]> {
+  private get countries$(): Observable<CountryListModel[]> {
     return this.store.select(selectCountries)
       .pipe(map((countries) => countries.map(responseMapper)));
   }

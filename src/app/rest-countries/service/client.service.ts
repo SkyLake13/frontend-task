@@ -19,13 +19,13 @@ export class ClientService implements APIClient {
     private readonly apiBaseUrl: string
   ) { }
 
-  public getAllCountries(): Observable<CountryResponse[]> {
+  public getAllCountries$(): Observable<CountryResponse[]> {
     const url = `${this.apiBaseUrl}/${ALL}`;
 
     return this.httpClient.get<CountryResponse[]>(url);
   }
 
-  public getCountryByCode(code: string): Observable<CountryResponse> {
+  public getCountryByCode$(code: string): Observable<CountryResponse> {
     const url = `${this.apiBaseUrl}/${BY_CODE}/${code}`;
 
     return this.httpClient.get<CountryResponse[]>(url)

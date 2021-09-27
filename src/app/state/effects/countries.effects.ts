@@ -27,7 +27,7 @@ export class CountriesEffects {
             withLatestFrom(this.store.select(selectCountriesState)),
             filter(([, countriesState]) => countriesState.countries.length === 0),
             tap(() => this.store.dispatch(startLoader())),
-            switchMap(() => this.clientService.getAllCountries()
+            switchMap(() => this.clientService.getAllCountries$()
                 .pipe(
                     map((countries) => getCountriesSuccess({ countries })),
                     tap(() => this.store.dispatch(stopLoader()))
@@ -41,7 +41,7 @@ export class CountriesEffects {
             withLatestFrom(this.store.select(selectCountriesState)),
             filter(([, countriesState]) => countriesState.countries.length === 0),
             tap(() => this.store.dispatch(startLoader())),
-            switchMap(([action]) => this.clientService.getCountryByCode(action.code)
+            switchMap(([action]) => this.clientService.getCountryByCode$(action.code)
                 .pipe(
                     map((country) => getCountrySuccess({ country })),
                     tap(() => this.store.dispatch(stopLoader()))

@@ -3,7 +3,7 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
 </mat-toolbar>
-<ng-container *ngIf="country | async; else notFound ; let country">
+<ng-container *ngIf="country$ | async; else notFound ; let country">
   <app-country-detail-presentation [country]="country">
   </app-country-detail-presentation>
 </ng-container>

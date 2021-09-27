@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public get loading() {
+  public get loading$() {
     return this.store.select(selectLoader);
   }
 

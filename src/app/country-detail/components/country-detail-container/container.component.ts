@@ -16,7 +16,7 @@ import { Location } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryDetailContainerComponent implements OnInit, OnDestroy {
-  public get country() {
+  public get country$() {
     return this.store.select(state => state.countries.countryDetail);
   }
 

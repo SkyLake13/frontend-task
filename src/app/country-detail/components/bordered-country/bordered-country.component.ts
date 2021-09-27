@@ -14,7 +14,7 @@ export class BorderedCountryComponent {
   @Input()
   public countryCode!: string;
 
-  public get country() {
+  public get country$() {
     return this.store.select(selectCountries)
     .pipe(map((countries) => countries.find((c) => c.cca3 === this.countryCode)))
   }
