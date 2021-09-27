@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { AppState, clearCountry, getCountry } from '@state';
 
@@ -30,14 +30,14 @@ export class CountryDetailContainerComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.dispatchClearCountry();
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   private dispatchGetCountry() {
     this.subscription = this.route.paramMap
       .pipe(
         filter((parmas) => parmas.has(CODE_PATH_PARAM)),
-        map((params) => params.get(CODE_PATH_PARAM))
+        map((params) => params.get(CODE_PATH_PARAM)),
       )
       .subscribe((code) => code !== null && this.store.dispatch(getCountry({ code })));
   }
@@ -52,5 +52,5 @@ export class CountryDetailContainerComponent implements OnInit, OnDestroy {
     private readonly location: Location
   ) { }
 
-  private subscription!: Subscription;
+  private subscription?: Subscription;
 }
