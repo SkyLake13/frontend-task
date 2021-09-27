@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { API_BASE_URL } from '../injection-tokens';
 import { ClientService } from './client.service';
 
-fdescribe('ClientService', () => {
+describe('ClientService', () => {
   let service: ClientService;
   let httpTestingController: HttpTestingController;
   let subscription: Subscription;
