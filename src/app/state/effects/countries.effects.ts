@@ -21,7 +21,7 @@ export class CountriesEffects {
         private readonly clientService: APIClient
     ) { }
 
-    private fetchCountries$ = createEffect(() => this.actions$
+    public fetchCountries$ = createEffect(() => this.actions$
         .pipe(
             ofType(getCountries),
             withLatestFrom(this.store.select(selectCountriesState)),
@@ -35,7 +35,7 @@ export class CountriesEffects {
             )
         )
     );
-    private fetchCountry$ = createEffect(() => this.actions$
+    public fetchCountry$ = createEffect(() => this.actions$
         .pipe(
             ofType(getCountry),
             withLatestFrom(this.store.select(selectCountriesState)),
