@@ -21,10 +21,44 @@ describe('FilterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FilterComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render input', () => {
+    component.filter = {
+      region: 'asia',
+      country: 'india'
+    };
+
+    fixture.detectChanges();
+
+    const region = component.form.get('region');
+    const country = component.form.get('country');
+
+    expect(region).toBeTruthy();
+    expect(region?.value).toEqual('asia');
+
+    expect(country).toBeTruthy();
+    expect(country?.value).toEqual('india');
+  });
+
+  it('should render input', (done) => {
+    component.form.valueChanges.subscribe((form) => {
+      expect(form).toBeTruthy();
+      expect(form?.region).toEqual('europe');
+      expect(form?.country).toEqual('germany');
+
+      done();
+    });
+
+    component.form.patchValue({
+      region: 'europe',
+      country: 'germany'
+    });
+
+    fixture.detectChanges();
   });
 });

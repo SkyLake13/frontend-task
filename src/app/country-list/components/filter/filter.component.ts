@@ -17,7 +17,7 @@ export class FilterComponent implements OnInit {
   @Input()
   public countries: string[] | null = [];
 
-  public form!: FormGroup;
+  public form: FormGroup;
 
   public ngOnInit(): void {
     this.form.patchValue({...this.filter});
