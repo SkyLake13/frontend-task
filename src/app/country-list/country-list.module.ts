@@ -13,7 +13,8 @@ import { CountryListRoutingModule } from './country-list-routing.module';
 import { CountryListContainerComponent } from './components/country-list-container/container.component';
 import { CountryListPresentationComponent } from './components/country-list-presentation/presentation.component';
 import { FilterComponent } from './components/filter/filter.component';
-import { CountryPipe } from './country-pipe/country.pipe';
+import { CountryPipe } from './pipes/country/country.pipe';
+import { FilterPipe } from './pipes/filter/filter.pipe';
 
 
 const MATERIAL_MODULES = [
@@ -28,7 +29,7 @@ const MATERIAL_MODULES = [
   declarations: [
     CountryListContainerComponent,
     CountryListPresentationComponent,
-    FilterComponent, CountryPipe
+    FilterComponent, CountryPipe, FilterPipe
   ],
   imports: [
     CommonModule,

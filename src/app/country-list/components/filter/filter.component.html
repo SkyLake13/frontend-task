@@ -3,7 +3,7 @@
     <mat-label>Region</mat-label>
     <input matInput formControlName="region" placeholder="Ex. Asia" [matAutocomplete]="regionsAuto"/>
     <mat-autocomplete #regionsAuto="matAutocomplete">
-      <mat-option *ngFor="let region of regions" [value]="region">
+      <mat-option *ngFor="let region of regions | filter : _region" [value]="region">
         {{region}}
       </mat-option>
     </mat-autocomplete>
@@ -13,7 +13,7 @@
     <mat-label>Country</mat-label>
     <input matInput formControlName="country" placeholder="Ex. Germany" [matAutocomplete]="countriesAuto"/>
     <mat-autocomplete #countriesAuto="matAutocomplete">
-      <mat-option *ngFor="let country of countries" [value]="country">
+      <mat-option *ngFor="let country of countries | filter : _country" [value]="country">
         {{country}}
       </mat-option>
     </mat-autocomplete>

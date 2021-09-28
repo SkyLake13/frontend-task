@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { By } from '@angular/platform-browser';
-import { CountryPipe } from '@country-list/country-pipe/country.pipe';
+import { CountryPipe } from '@country-list/pipes/country/country.pipe';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { CountryListPresentationComponent } from './presentation.component';

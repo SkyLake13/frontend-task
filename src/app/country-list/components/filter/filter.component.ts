@@ -29,4 +29,12 @@ export class FilterComponent implements OnInit {
       country: ''
     });
   }
+
+  public get _country() {
+    return this.form.get('country')?.value;
+  }
+
+  public get _region() {
+    return this.form.get('region')?.value;
+  }
 }
