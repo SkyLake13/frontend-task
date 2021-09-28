@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
 import { API_CLIENT } from '@rest-countries';
-import { CountriesEffects, countriesReducer, getCountriesSuccess } from '@state';
+import { CountriesEffects, countryReducer, getCountriesSuccess } from '@state';
 import { of } from 'rxjs';
 import { CODE_PATH_PARAM } from 'src/app/constants';
 
@@ -32,7 +32,7 @@ describe('CountryDetailContainerComponent', () => {
       imports: [
         RouterTestingModule,
         StoreModule.forRoot({
-          countryList: countriesReducer
+          country: countryReducer
         }),
         EffectsModule.forRoot([
             CountriesEffects
