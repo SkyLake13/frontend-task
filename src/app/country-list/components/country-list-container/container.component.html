@@ -1,2 +1,14 @@
-<app-country-list-filter [filter]="(filter$ | async)" [regions]="regions$ | async" [countries]="countryNames$ | async"></app-country-list-filter>
-<app-country-list-presentation [dataSource]="_dataSource"></app-country-list-presentation>
+<ng-container *ngIf="error$ | async; else success">
+    <div class="error">
+        <p>
+          Sorry, something went wrong!
+        </p>
+      </div>
+</ng-container>
+
+<ng-template #success>
+    <app-country-list-filter [filter]="(filter$ | async)" 
+            [regions]="regions$ | async" 
+            [countries]="countryNames$ | async"></app-country-list-filter>
+    <app-country-list-presentation [dataSource]="_dataSource"></app-country-list-presentation>
+</ng-template>

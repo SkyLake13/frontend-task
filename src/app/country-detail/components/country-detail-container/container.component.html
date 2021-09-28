@@ -3,16 +3,15 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
 </mat-toolbar>
-<ng-container *ngIf="country$ | async; else notFound ; let country">
+<ng-container *ngIf="country$ | async; let country">
   <app-country-detail-presentation [country]="country">
   </app-country-detail-presentation>
 </ng-container>
 
-<ng-template #notFound>
+<ng-container *ngIf="error$ | async; let error">
   <div class="not-found">
     <p>
       Sorry, country not found!
     </p>
   </div>
-  
-</ng-template>
+</ng-container>

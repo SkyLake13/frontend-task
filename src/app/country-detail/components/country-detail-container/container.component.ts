@@ -4,7 +4,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { AppState, clearCountry, getCountry, selectCountry } from '@state';
+import { AppState, clearCountry, getCountry, 
+  selectCountry, selectCountryError } from '@state';
 
 import { CODE_PATH_PARAM } from '../../../constants';
 import { Location } from '@angular/common';
@@ -18,6 +19,10 @@ import { Location } from '@angular/common';
 export class CountryDetailContainerComponent implements OnInit, OnDestroy {
   public get country$() {
     return this.store.select(selectCountry);
+  }
+
+  public get error$() {
+    return this.store.select(selectCountryError);
   }
 
   public back() {

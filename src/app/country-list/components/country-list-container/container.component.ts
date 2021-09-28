@@ -6,7 +6,7 @@ import { debounceTime, map } from 'rxjs/operators';
 
 import { CountryResponse } from '@rest-countries';
 import { selectCountries, AppState, getCountries, 
-  filterCountries, selectFilter, FilterParams } from '@state';
+  filterCountries, selectFilter, FilterParams, selectCountriesError } from '@state';
 
 import { CountryListModel } from '../../country-list.model';
 import { FilterComponent } from '../filter/filter.component';
@@ -21,6 +21,10 @@ import { MatTableDataSource } from '@angular/material/table';
 export class CountryListContainerComponent implements OnInit, AfterViewInit, OnDestroy {
   public get filter$(): Observable<FilterParams> {
     return this.store.select(selectFilter);
+  }
+
+  public get error$() {
+    return this.store.select(selectCountriesError);
   }
 
   public get regions$(): Observable<string[]> {
