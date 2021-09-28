@@ -2,6 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FilterPipe } from '../../pipes/filter/filter.pipe';
 
 import { FilterComponent } from './filter.component';
 
@@ -11,7 +12,7 @@ describe('FilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FilterComponent ],
+      declarations: [ FilterComponent, FilterPipe ],
       imports: [ReactiveFormsModule, MatAutocompleteModule],
       schemas: [NO_ERRORS_SCHEMA]
     })
