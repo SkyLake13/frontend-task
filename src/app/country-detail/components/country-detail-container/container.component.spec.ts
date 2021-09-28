@@ -32,7 +32,7 @@ describe('CountryDetailContainerComponent', () => {
       imports: [
         RouterTestingModule,
         StoreModule.forRoot({
-          countries: countriesReducer
+          countryList: countriesReducer
         }),
         EffectsModule.forRoot([
             CountriesEffects

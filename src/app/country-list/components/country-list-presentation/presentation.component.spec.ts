@@ -9,7 +9,7 @@ import { CountryListPresentationComponent } from './presentation.component';
 
 describe('CountryListPresentationComponent', () => {
   const initialState = {
-    countries: {
+    countryList: {
       countries: [
         {
           cca3: 'DEU',

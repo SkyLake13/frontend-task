@@ -4,7 +4,7 @@ import { CountryPipe } from './country.pipe';
 
 describe('CountryPipe', () => {
   const initialState = {
-    countries: {
+    countryList: {
       countries: [
         {
           cca3: 'DEU',

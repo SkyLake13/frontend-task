@@ -8,7 +8,7 @@ import { BorderedCountryComponent } from './bordered-country.component';
 
 describe('BorderedCountryComponent', () => {
   const initialState = {
-    countries: {
+    countryList: {
       countries: []
     }
   }
@@ -51,7 +51,7 @@ describe('BorderedCountryComponent', () => {
 
   it('should render according to input when state is present', () => {
     mockStore.setState({
-      countries: {
+      countryList: {
         countries: [{
           cca3: 'DEU',
           name: {
