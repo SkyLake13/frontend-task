@@ -33,9 +33,9 @@ export class CountriesEffects {
                 .pipe(
                     map((countries) => getCountriesSuccess({ countries })),
                     tap(() => this.store.dispatch(stopLoader())),
-                    catchError((err) => {
+                    catchError((error) => {
                         this.store.dispatch(stopLoader());
-                        return of(getCountriesFailure(err));
+                        return of(getCountriesFailure({ error }));
                     })
                 )
             )
@@ -56,9 +56,9 @@ export class CountriesEffects {
                         .pipe(
                             map((country) => getCountrySuccess({ country })),
                             tap(() => this.store.dispatch(stopLoader())),
-                            catchError((err) => {
+                            catchError((error) => {
                                 this.store.dispatch(stopLoader());
-                                return of(getCountryFailure(err));
+                                return of(getCountryFailure({ error }));
                             })
                         )
                 }

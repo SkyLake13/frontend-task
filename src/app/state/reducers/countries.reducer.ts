@@ -2,14 +2,16 @@ import { createReducer, on } from "@ngrx/store";
 
 import { CountryResponse } from "@rest-countries";
 
-import { getCountriesSuccess } from "../actions/countries.actions";
+import { getCountriesFailure, getCountriesSuccess } from "../actions/countries.actions";
 
 export interface CountriesState {
-    countries: CountryResponse[]
+    countries: CountryResponse[],
+    error: unknown
 }
 
 const initialState: CountriesState = {
-    countries: []
+    countries: [],
+    error: null
 }
 
 const _countriesReducer = createReducer(
@@ -18,6 +20,12 @@ const _countriesReducer = createReducer(
         return {
             ...state,
             countries: [...countries]
+        }
+    }),
+    on(getCountriesFailure, (state, { error }) => {
+        return {
+            ...state,
+            error: error
         }
     })
 );

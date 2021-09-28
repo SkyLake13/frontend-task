@@ -1,10 +1,11 @@
-import { getCountriesSuccess, getCountry, getCountrySuccess } from '../actions';
+import { getCountriesSuccess } from '../actions';
 import { countriesReducer } from './countries.reducer';
 
 describe('CountriesReducer', () => {
     it('should reduce getCountriesSuccess action', () => {
         const initialState = {
-            countries: []
+            countries: [],
+            error: null
         };
 
         const newState = countriesReducer(initialState, getCountriesSuccess({
