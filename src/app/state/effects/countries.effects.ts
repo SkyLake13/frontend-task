@@ -26,18 +26,25 @@ export class CountriesEffects {
     public fetchCountries$ = createEffect(() => this.actions$
         .pipe(
             ofType(getCountries),
-            withLatestFrom(this.store.select(selectCountriesState)),
-            filter(([, countriesState]) => countriesState.countries.length === 0),
             tap(() => this.store.dispatch(startLoader())),
-            switchMap(() => this.clientService.getAllCountries$()
-                .pipe(
-                    map((countries) => getCountriesSuccess({ countries })),
-                    tap(() => this.store.dispatch(stopLoader())),
-                    catchError((error) => {
+            withLatestFrom(this.store.select(selectCountriesState)),
+            switchMap(([action, state]) => {
+                    if(state.countries.length === 0) {
+                        return this.clientService.getAllCountries$()
+                            .pipe(
+                                map((countries) => getCountriesSuccess({ countries })),
+                                tap(() => this.store.dispatch(stopLoader())),
+                                catchError((error) => {
+                                    this.store.dispatch(stopLoader());
+                                    return of(getCountriesFailure({ error }));
+                                })
+                            )
+                    } else {
                         this.store.dispatch(stopLoader());
-                        return of(getCountriesFailure({ error }));
-                    })
-                )
+                        const countries = state.countries;
+                        return of(getCountriesSuccess({ countries }))
+                    }
+                }
             )
         )
     );
@@ -50,7 +57,7 @@ export class CountriesEffects {
                 const country = getCountryFromState(state, action.code);
                 if (country) {
                     this.store.dispatch(stopLoader());
-                    return of(getCountrySuccess({ country }))
+                    return of(getCountrySuccess({ country }));
                 } else {
                     return this.clientService.getCountryByCode$(action.code)
                         .pipe(

@@ -56,13 +56,49 @@ describe('CountriesEffects', () => {
 
     afterEach(() => {
         subscription?.unsubscribe();
+        store.refreshState();
     });
 
     it('should initialize', () => {
         expect(effects).toBeTruthy();
     });
 
-    it('should GetCountries', (done) => {
+    it('should Get Countries from state', (done) => {
+        const countries = [
+            {
+                cca3: 'DEU',
+                name: {
+                  common: 'Germany'
+                },
+                capital: ['Berlin'],
+                region: 'europe',
+                subregion: '',
+                borders: [],
+                area: 8798,
+                flags: []
+            }
+        ];
+
+        store.setState({
+            ...initialState,
+            countryList: {
+                error: null,
+                countries
+            }
+        });
+
+        const expectedAction = getCountriesSuccess({ countries });
+        actions = of(getCountries);
+        subscription = effects.fetchCountries$.subscribe((action) => {
+           expect(action).toEqual(expectedAction);
+
+            done();
+        });
+
+        
+    });
+
+    it('should Get Countries from API Client service', (done) => {
         const countries = [
             {
                 cca3: 'DEU',
@@ -90,7 +126,42 @@ describe('CountriesEffects', () => {
         });
     });
 
-    it('should GetCountry', (done) => {
+    it('should Get Country from state', (done) => {
+        const countries = [
+            {
+                cca3: 'DEU',
+                name: {
+                  common: 'Germany'
+                },
+                capital: ['Berlin'],
+                region: 'europe',
+                subregion: '',
+                borders: [],
+                area: 8798,
+                flags: []
+            }
+        ];
+
+        store.setState({
+            ...initialState,
+            countryList: {
+                error: null,
+                countries
+            }
+        });
+
+        const expectedAction = getCountrySuccess({ country: countries[0] });
+        actions = of(getCountry({ code: 'DEU' }));
+        subscription = effects.fetchCountry$.subscribe((action) => {
+           expect(action).toEqual(expectedAction);
+
+            done();
+        });
+
+        
+    });
+
+    it('should Get Country from API Client service', (done) => {
         const country = {
                 cca3: 'DEU',
                 name: {
