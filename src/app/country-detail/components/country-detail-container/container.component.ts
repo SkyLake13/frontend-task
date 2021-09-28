@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
-import { AppState, clearCountry, getCountry } from '@state';
+import { AppState, clearCountry, getCountry, selectCountry } from '@state';
 
 import { CODE_PATH_PARAM } from '../../../constants';
 import { Location } from '@angular/common';
@@ -17,7 +17,7 @@ import { Location } from '@angular/common';
 })
 export class CountryDetailContainerComponent implements OnInit, OnDestroy {
   public get country$() {
-    return this.store.select(state => state.countries.countryDetail);
+    return this.store.select(selectCountry);
   }
 
   public back() {

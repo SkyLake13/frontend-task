@@ -1,16 +1,18 @@
 import { Inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { filter, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
+import { catchError, filter, map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 
 import { APIClient, API_CLIENT } from "@rest-countries";
 
 import {
-    getCountries, getCountriesSuccess,
-    getCountry, getCountrySuccess, startLoader, stopLoader
+    getCountries, getCountriesFailure, getCountriesSuccess,
+    getCountry, getCountryFailure, getCountrySuccess, startLoader, stopLoader
 } from "../actions";
 import { AppState } from "../app.state";
 import { selectCountriesState } from "../selectors";
+import { of } from "rxjs";
+import { CountriesState } from "@state/reducers";
 
 @Injectable()
 export class CountriesEffects {
@@ -30,7 +32,11 @@ export class CountriesEffects {
             switchMap(() => this.clientService.getAllCountries$()
                 .pipe(
                     map((countries) => getCountriesSuccess({ countries })),
-                    tap(() => this.store.dispatch(stopLoader()))
+                    tap(() => this.store.dispatch(stopLoader())),
+                    catchError((err) => {
+                        this.store.dispatch(stopLoader());
+                        return of(getCountriesFailure(err));
+                    })
                 )
             )
         )
@@ -38,15 +44,31 @@ export class CountriesEffects {
     public fetchCountry$ = createEffect(() => this.actions$
         .pipe(
             ofType(getCountry),
-            withLatestFrom(this.store.select(selectCountriesState)),
-            filter(([, countriesState]) => countriesState.countries.length === 0),
             tap(() => this.store.dispatch(startLoader())),
-            switchMap(([action]) => this.clientService.getCountryByCode$(action.code)
-                .pipe(
-                    map((country) => getCountrySuccess({ country })),
-                    tap(() => this.store.dispatch(stopLoader()))
-                )
-            )
+            withLatestFrom(this.store.select(selectCountriesState)),
+            switchMap(([action, state]) => {
+                const country = getCountryFromState(state, action.code);
+                if (country) {
+                    this.store.dispatch(stopLoader());
+                    return of(getCountrySuccess({ country }))
+                } else {
+                    return this.clientService.getCountryByCode$(action.code)
+                        .pipe(
+                            map((country) => getCountrySuccess({ country })),
+                            tap(() => this.store.dispatch(stopLoader())),
+                            catchError((err) => {
+                                this.store.dispatch(stopLoader());
+                                return of(getCountryFailure(err));
+                            })
+                        )
+                }
+            })
         )
     );
+}
+
+function getCountryFromState(state: CountriesState, code: string) {
+    return state.countries.length !== 0 ? state.countries
+                .find((c) => c.cca3.toLowerCase() === code.toLowerCase())
+        : null;
 }

@@ -13,7 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { RestCountriesModule } from '@rest-countries';
-import { countriesReducer, CountriesEffects, filterReducer, loadingReducer } from '@state';
+import { countriesReducer, CountriesEffects, 
+  filterReducer, loadingReducer, countryReducer } from '@state';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +23,8 @@ import { environment } from '../environments/environment';
 
 
 const rootReducer = {
-  countries: countriesReducer,
+  countryList: countriesReducer,
+  country: countryReducer,
   filter: filterReducer,
   loader: loadingReducer
 };

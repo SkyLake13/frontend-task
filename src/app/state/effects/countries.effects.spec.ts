@@ -13,8 +13,10 @@ describe('CountriesEffects', () => {
     ]);
 
     let initialState: AppState = {
-        countries: {
-            countries: [],
+        countryList: {
+            countries: []
+        },
+        country: {
             countryDetail: null
         },
         filter: {

@@ -4,7 +4,7 @@ import { AppState } from '../app.state';
 import { CountriesState } from '../reducers/countries.reducer';
 
 
-export const selectCountriesState = (state: AppState) => state.countries;
+export const selectCountriesState = (state: AppState) => state.countryList;
 
 export const selectCountries = createSelector(
   selectCountriesState,
